@@ -21,6 +21,16 @@ router.post("/projects", auth, async (req, res) => {
 // GET /projects?limit=10&skip=20
 // GET /projects?sortBy=createdAt_desc [pending]
 
+router.get("/allProjects", async (req, res) => {
+  try {
+    const projects = await Project.find({});
+    res.send(projects);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send();
+  }
+});
+
 router.get("/projects", auth, async (req, res) => {
   // const match = {};
   // if (req.query.completed) {
