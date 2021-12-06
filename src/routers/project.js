@@ -124,6 +124,7 @@ router.post(
   async (req, res) => {
     const _id = req.params.id;
     console.log(_id);
+    console.log(req.file.buffer);
     console.log(req.user._id);
     try {
       const proj = await Project.findOne({ _id, owner: req.user._id });
@@ -132,8 +133,9 @@ router.post(
       }
       proj.file = req.file.buffer;
       await proj.save();
-      res.send();
+      res.status(201).send({ msg: "File uploaded" });
     } catch (e) {
+      console.log(e);
       res.status(500).send();
     }
   },
